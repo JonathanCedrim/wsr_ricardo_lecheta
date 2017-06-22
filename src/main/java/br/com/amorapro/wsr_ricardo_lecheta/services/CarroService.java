@@ -5,6 +5,7 @@ import br.com.amorapro.wsr_ricardo_lecheta.model.Carro;
 import br.com.amorapro.wsr_ricardo_lecheta.repositories.CarroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,6 +19,12 @@ public class CarroService {
         return carroRepository.findAll();
     }
 
+    @Transactional(rollbackFor = Exception.class)
+    public void delete(Long id) {
+        carroRepository.delete(id);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
     public void insert(Carro carro) {
         carroRepository.save(carro);
     }
